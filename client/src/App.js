@@ -6,9 +6,11 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { themeSettings } from "theme";
 import Layout from "scenes/layout";
 import Dashboard from "scenes/dashboard";
-import Products from "scenes/products";
+import Products from "scenes/candidates";
 import Customers from "scenes/customers";
-import Transactions from "scenes/transactions";
+import Recruiters from "scenes/recruiters";
+import Candidates from "scenes/candidates";
+import Transactions from "scenes/recruiters";
 import Geography from "scenes/geography";
 import Overview from "scenes/overview";
 import Daily from "scenes/daily";
@@ -16,6 +18,10 @@ import Monthly from "scenes/monthly";
 import Breakdown from "scenes/breakdown";
 import Admin from "scenes/admin";
 import Performance from "scenes/performance";
+import Signup from "fire-auth/signup";
+import Login from "fire-auth/login";
+import Register1 from "scenes/daily/r1";
+import Home from "scenes/daily/Home";
 
 function App() {
   const mode = useSelector((state) => state.global.mode);
@@ -29,9 +35,12 @@ function App() {
             <Route element={<Layout />}>
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/customers" element={<Customers />} />
-              <Route path="/transactions" element={<Transactions />} />
+                <Route path="/r1" element={<Register1 />} />
+               <Route path="/home" element={<Home />} />
+
+              <Route path="/candidates" element={<Candidates />} />
+              <Route path="/managers" element={<Customers />} />
+              <Route path="/recruiters" element={<Recruiters />} />
               <Route path="/geography" element={<Geography />} />
               <Route path="/overview" element={<Overview />} />
               <Route path="/daily" element={<Daily />} />
@@ -39,6 +48,10 @@ function App() {
               <Route path="/breakdown" element={<Breakdown />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="/performance" element={<Performance />} />
+               <Route path="/login" element={<Login />} />
+            
+              <Route path="/signup" element={<Signup />} />
+            
             </Route>
           </Routes>
         </ThemeProvider>

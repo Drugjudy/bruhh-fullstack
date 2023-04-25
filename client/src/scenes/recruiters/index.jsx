@@ -2,11 +2,11 @@ import React from "react";
 import { Box, useTheme } from "@mui/material";
 import { useGetCustomersQuery } from "state/api";
 import Header from "components/Header";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, } from "@mui/x-data-grid";
 
-const Customers = () => {
+const Recruiters = () => {
   const theme = useTheme();
-  const { data, isLoading } = useGetCustomersQuery();
+  const { data } = useGetCustomersQuery();
   console.log("data", data);
 
 
@@ -58,125 +58,13 @@ const Customers = () => {
                 { field: 'AccountNo', headerName: 'AccountNo', width: 150 }, { field: 'DeductionInAdvance', headerName: 'DeductionInAdvance', width: 150 },
           { field: 'IfscCode', headerName: 'IfscCode', width: 150 },
              { field: 'BankName', headerName: 'BankName', width: 150 },
-                { field: 'AccountName', headerName: 'AccountName', width: 150 },
-    // {
-    //   field: "Name",
-    //   headerName: "Name",
-    //   flex: 0.25,
-    // },
-    // {
-    //   field: "DOJ",
-    //   headerName: "data of joining",
-    //   flex: 0.25,
-    // },
-    // {
-    //   field: "ActivationStatus",
-    //   headerName: "Active/deactive",
-    //   flex: 0.25,
-    // },
-    // {
-    //   field: "Division",
-    //   headerName: "Division",
-    //   flex: 0.25,
-    // },
-    // {
-    //   field: "Designation",
-    //   headerName: "Designation",
-    //   flex: 0.25,
-    // },
-    // {
-    //   field: "Zone",
-    //   headerName: "Zone",
-    //   flex: 0.25,
-    // },
-    // {
-    //   field: "State",
-    //   headerName: "State",
-    //   flex: 0.25,
-    // },
-    // {
-    //   field: "City",
-    //   headerName: "City",
-    //   flex: 0.25,
-    // },
-    //  {
-    //   field: "Location",
-    //   headerName: "Location",
-    //   flex: 0.25,
-    // },
-    // {
-    //   field: "CityZone",
-    //   headerName: "CityZone",
-    //   flex: 0.25,
-    // },
-    // {
-    //   field: "Head",
-    //   headerName: "Head",
-    //   flex: 0.25,
-    // },
-    // {
-    //   field: "Company",
-    //   headerName: "Company",
-    //   flex: 0.1,
-    // },
-    // {
-    //   field: "Salary",
-    //   headerName: "Salary",
-    //   flex: 0.1,
-    // },
-    // {
-    //   field: "MDay",
-    //   headerName: "MDay",
-    //   flex: 0.1,
-    // },
-    // {
-    //   field: "PaidDays",
-    //   headerName: "PaidDays",
-    //   flex: 0.1,
-    // },
-    // {
-    //   field: "Basic",
-    //   headerName: "Basic",
-    //   flex: 0.1,},
-    // },
-    // {
-    //   field: "DA",
-    //   headerName: "ID",
-    //   flex: 0.1,
-    // },
-
-    // {
-    //   field: "DOJ",
-    //   headerName: "data of join",
-    //   flex: 0.1,
-    // },
-    // {
-    //   field: "Location",
-    //   headerName: "Country",
-    //   flex: 0.4,
-    // },
-    // {
-    //   field: "Company",
-    //   headerName: "Company",
-    //   flex: 1,
-    // },
-    // {
-    //   field: "Head",
-    //   headerName: "boss",
-    //   flex: 0.25,
-    // },
-    //  {
-    //   field: "Salary",
-    //   headerName: "income",
-    //   flex: 0.25,}
-    
-  
-  ];
+                { field: 'AccountName', headerName: 'AccountName', width: 150 },];
+    // 
 
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="MANAGERS" subtitle="List of Managers" />
+      <Header title="RECRUITERS" subtitle="List of Recruiters" />
       <Box
         mt="40px"
         height="75vh"
@@ -216,6 +104,6 @@ const Customers = () => {
   );
 };
 
-export default Customers;
+export default Recruiters;
 
 

@@ -1,21 +1,63 @@
-import React, { useContext, useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { adddata } from './contextporvider';
+import React, { useContext, useEffect, useState } from 'react'
+import { NavLink, useParams,useHistory } from 'react-router-dom'
+import { updatedata } from './context/ContextProvider'
 
-const Breakdown = () => {
 
-    const { udata, setUdata } = useContext(adddata);
+const Edit = () => {
 
-    const history = useNavigate();
+    // const [getuserdata, setUserdata] = useState([]);
+    // console.log(getuserdata);
+
+   const {updata, setUPdata} = useContext(updatedata)
+
+    const history = useHistory("");
 
     const [inpval, setINP] = useState({
         name: "",
-        email: "",
-        age: "",
-        mobile: "",
-        work: "",
-        add: "",
-        desc: ""
+       Sno: "",
+    EmpId: "",
+    Name: "",
+    DOJ: "",
+    ActivationStatus: "",
+    Division: "",
+    Designation: "",
+    Zone:"",
+    State: "",
+    City: "",
+    Location: "",
+    CityZone: "",
+    Head: "",
+    Company: "",
+    Salary: "",
+    MDay: "",
+    PaidDays: "",
+    Basic: "",
+    DA:"",
+    HRA: "",
+    CON: "",
+    SpeicalAllowence: "",
+    OtherAllowence: "",
+    Gross:"",
+    Empesic: "",
+    Emppf: "",
+    Emplwf: "",
+    ProfessionalTax: "",
+    ETD:"",
+    AmountPaid: "",
+    Admin1: "",
+    PetrolAllowence:"",
+    MoblieAllowence:"",
+    OtherExp: "",
+    NetTakeHome: "",
+    Incentive: "",
+    Amount: "",
+    DeductionInAdvance: "",
+    NetAmountPaid: "",
+    Remarks: "",
+    AccountNo: "",
+    IfscCode: "",
+    BankName: "",
+    AccountName:"",
     })
 
     const setdata = (e) => {
@@ -30,19 +72,18 @@ const Breakdown = () => {
     }
 
 
-    const addinpdata = async (e) => {
-        e.preventDefault();
+    const { id } = useParams("");
+    console.log(id);
 
-        const { name, email, work, add, mobile, desc, age } = inpval;
 
-        const res = await fetch("https://crudappreactjs.herokuapp.com/register", {
-            method: "POST",
+
+    const getdata = async () => {
+
+        const res = await fetch(`http://localhost:5000/getuser/${id}`, {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name, email, work, add, mobile, desc, age
-            })
+            }
         });
 
         const data = await res.json();
@@ -50,19 +91,49 @@ const Breakdown = () => {
 
         if (res.status === 422 || !data) {
             console.log("error ");
-            alert("error");
 
         } else {
-            history.push("/")
-            setUdata(data)
-            console.log("data added");
+            setINP(data)
+            console.log("get data");
 
         }
     }
 
+    useEffect(() => {
+        getdata();
+    }, []);
+
+
+    const updateuser = async(e)=>{
+        e.preventDefault();
+
+        const {name,email,work,add,mobile,desc,age} = inpval;
+
+        const res2 = await fetch(`https://crudappreactjs.herokuapp.com/updateuser/${id}`,{
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body:JSON.stringify({
+                name,email,work,add,mobile,desc,age
+            })
+        });
+
+        const data2 = await res2.json();
+        console.log(data2);
+
+        if(res2.status === 422 || !data2){
+            alert("fill the data");
+        }else{
+            history.push("/")
+            setUPdata(data2);
+        }
+
+    }
+
     return (
         <div className="container">
-            <NavLink to="/">home</NavLink>
+            <NavLink to="/">home2</NavLink>
             <form className="mt-4">
                 <div className="row">
                     <div class="mb-3 col-lg-6 col-md-6 col-12">
@@ -94,11 +165,16 @@ const Breakdown = () => {
                         <textarea name="desc" value={inpval.desc} onChange={setdata} className="form-control" id="" cols="30" rows="5"></textarea>
                     </div>
 
-                    <button type="submit" onClick={addinpdata} class="btn btn-primary">Submit</button>
+                    <button type="submit" onClick={updateuser} class="btn btn-primary">Submit</button>
                 </div>
             </form>
         </div>
     )
 }
 
-export default Breakdown;
+export default Edit;
+
+
+
+
+

@@ -25,6 +25,8 @@ const Dashboard = () => {
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
   const { data, isLoading } = useGetDashboardQuery();
+  console.log('data' , data);
+  
 
   const columns = [
     {
@@ -90,7 +92,7 @@ const Dashboard = () => {
       >
         {/* ROW 1 */}
         <StatBox
-          title="Total Customers"
+          title="New Clients"
           value={data && data.totalCustomers}
           increase="+14%"
           description="Since last month"
@@ -101,7 +103,7 @@ const Dashboard = () => {
           }
         />
         <StatBox
-          title="Sales Today"
+          title="New Hirings"
           value={data && data.todayStats.totalSales}
           increase="+21%"
           description="Since last month"
@@ -121,7 +123,7 @@ const Dashboard = () => {
           <OverviewChart view="sales" isDashboard={true} />
         </Box>
         <StatBox
-          title="Monthly Sales"
+          title="Closed Hirings"
           value={data && data.thisMonthStats.totalSales}
           increase="+5%"
           description="Since last month"
@@ -132,7 +134,7 @@ const Dashboard = () => {
           }
         />
         <StatBox
-          title="Yearly Sales"
+          title="Recruiter Traffic"
           value={data && data.yearlySalesTotal}
           increase="+43%"
           description="Since last month"

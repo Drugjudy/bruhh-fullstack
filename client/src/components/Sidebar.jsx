@@ -27,6 +27,9 @@ import {
   AdminPanelSettingsOutlined,
   TrendingUpOutlined,
   PieChartOutlined,
+  SupervisorAccount,
+  Diversity3,
+  Engineering,
 } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -43,16 +46,16 @@ const navItems = [
     icon: null,
   },
   {
-    text: "Products",
-    icon: <ShoppingCartOutlined />,
+    text: "Managers",
+    icon: <SupervisorAccount />,
   },
   {
-    text: "Customers",
-    icon: <Groups2Outlined />,
+    text: "Recruiters",
+    icon: <Diversity3 />,
   },
   {
-    text: "Transactions",
-    icon: <ReceiptLongOutlined />,
+    text: "Candidates",
+    icon: <Engineering />,
   },
   {
     text: "Geography",

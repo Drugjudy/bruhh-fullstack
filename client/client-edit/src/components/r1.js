@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { adddata } from './contextporvider';
+import { NavLink, useHistory } from 'react-router-dom'
+import { adddata } from './context/ContextProvider';
 
-const Breakdown = () => {
+const Register1 = () => {
 
     const { udata, setUdata } = useContext(adddata);
 
-    const history = useNavigate();
+    const history = useHistory();
 
     const [inpval, setINP] = useState({
         name: "",
@@ -35,7 +35,7 @@ const Breakdown = () => {
 
         const { name, email, work, add, mobile, desc, age } = inpval;
 
-        const res = await fetch("https://crudappreactjs.herokuapp.com/register", {
+        const res = await fetch("http://localhost:5000/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -100,5 +100,4 @@ const Breakdown = () => {
         </div>
     )
 }
-
-export default Breakdown;
+export default Register1;
