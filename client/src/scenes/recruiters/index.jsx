@@ -1,22 +1,103 @@
-import React from "react";
+
+import React, { useState, useEffect, useContext } from 'react';
 import { Box, useTheme } from "@mui/material";
-import { useGetCustomersQuery } from "state/api";
+import { useGetRecruitersQuery } from "state/api";
 import Header from "components/Header";
 import { DataGrid, } from "@mui/x-data-grid";
+import { Button } from '@mui/material';
+import { NavLink } from 'react-router-dom';
+import { adddata, deldata, updatedata } from 'scenes/daily/context/ContextProvider';
+
+
 
 const Recruiters = () => {
   const theme = useTheme();
-  const { data } = useGetCustomersQuery();
+  const { data } = useGetRecruitersQuery();
   console.log("data", data);
+
+   const [getuserdata, setUserdata] = useState([]);
+    console.log(getuserdata);
+
+    const { udata, setUdata } = useContext(adddata);
+
+    const {updata, setUPdata} = useContext(updatedata);
+
+    const {dltdata, setDLTdata} = useContext(deldata);
+
+    const getdata = async () => {
+
+        const res = await fetch("http://localhost:5000/getdata", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const data = await res.json();
+
+        if (res.status === 422 || !data) {
+            console.log("error ");
+
+        } else {
+            setUserdata(data)
+            console.log("get data");
+
+        }
+    }
+
+    useEffect(() => {
+        getdata();
+    }, [])
+
+    const deleteuser = async (id) => {
+
+        const res2 = await fetch(`http://localhost:5000/deleteuser/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const deletedata = await res2.json();
+        console.log(deletedata);
+
+        if (res2.status === 422 || !deletedata) {
+            console.log("error");
+        } else {
+            console.log("user deleted");
+            setDLTdata(deletedata)
+            getdata();
+        }
+
+    }
+
+
+   
+
 
 
   const columns= [
-    {
-      field: "EmId",
-      headerName: "ID"
-     
-    },
+    {  headerName: 'edit ', width: 150, renderCell: (cellValues) => {
+    return (
+      <NavLink to={`/edit/${cellValues.row._id}`}>
+      <Button
+        variant="contained"
+        color="primary"
+      >
+        Edit
+      </Button>
+      </NavLink>
+    );
+  } },
+  
+  {  headerName: 'Delete', width: 150, renderCell: (cellValues) => {
+    return (
+      <button className="btn btn-danger" onClick={() => deleteuser(cellValues.row._id)}> delete </button>
+    );
+  } },
+    
        { field: 'Name', headerName: 'Name', width: 150 },
+         { field: 'email', headerName: 'Emp ID', width: 150 },
           { field: 'DOJ', headerName: 'Date of joining', width: 150 },
              { field: 'ActivationStatus', headerName: 'Active/deactive', width: 150 },
                 { field: 'Division', headerName: 'Division', width: 150 },
