@@ -1,16 +1,21 @@
-import React, { useContext, useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { adddata } from './context/ContextProvider';
+import React, { useContext, useEffect, useState } from 'react'
+import { NavLink, useParams,useNavigate } from 'react-router-dom'
+import { updatedata } from './context/ContextProvider'
 
-const Register1 = () => {
 
-    const { udata, setUdata } = useContext(adddata);
+const Edit = () => {
 
-    const history = useNavigate();
+    // const [getuserdata, setUserdata] = useState([]);
+    // console.log(getuserdata);
+
+   const {updata, setUPdata} = useContext(updatedata)
+
+    const history = useNavigate("");
 
     const [inpval, setINP] = useState({
         Name: "",
         email: "",
+        EmpId: "",
         AccountNo: "",
         ActivationStatus: "",
         Division: "",
@@ -51,8 +56,6 @@ const Register1 = () => {
         IfscCode: "",
         BankName: "",
         AccountName: "",
-        Role: "",
-
     })
 
     const setdata = (e) => {
@@ -67,19 +70,18 @@ const Register1 = () => {
     }
 
 
-    const addinpdata = async (e) => {
-        e.preventDefault();
+    const { id } = useParams("");
+    console.log(id);
 
-        const { Name, email, ActivationStatus, Division, AccountNo, Designation, DOJ, Zone, State, City, Location, CityZone, Head, Company, Salary, MDay, PaidDays, Basic, DA, HRA, CON, SpeicalAllowence, OtherAllowence, Gross, Empesic, Emppf, Emplwf, ProfessionalTax, ETD, AmountPaid, Admin1, MoblieAllowence, OtherExp, NetTakeHome, Incentive, Amount, DeductionInAdvance,  NetAmountPaid, Remarks, IfscCode, BankName, AccountName, Role } = inpval;
 
-        const res = await fetch("http://localhost:5000/register", {
-            method: "POST",
+
+    const getdata = async () => {
+
+        const res = await fetch(`http://localhost:5000/getuser/${id}`, {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                Name, email, ActivationStatus, Division, AccountNo, Designation, DOJ, Zone, State, City, Location, CityZone, Head, Company, Salary, MDay, PaidDays, Basic, DA, HRA, CON, SpeicalAllowence, OtherAllowence, Gross, Empesic, Emppf, Emplwf, ProfessionalTax, ETD, AmountPaid, Admin1, MoblieAllowence, OtherExp, NetTakeHome, Incentive, Amount, DeductionInAdvance,  NetAmountPaid, Remarks, IfscCode, BankName, AccountName, Role
-            })
+            }
         });
 
         const data = await res.json();
@@ -87,29 +89,60 @@ const Register1 = () => {
 
         if (res.status === 422 || !data) {
             console.log("error ");
-            alert("error");
 
         } else {
-            history.push("/")
-            setUdata(data)
-            console.log("data added");
+            setINP(data)
+            console.log("get data");
 
         }
     }
 
+    useEffect(() => {
+        getdata();
+    }, []);
+
+
+    const updateuser = async(e)=>{
+        e.preventDefault();
+
+        const {Name, email, ActivationStatus, Division, AccountNo, Designation, EmpId, DOJ, Zone, State, City, Location, CityZone, Head, Company, Salary, MDay, PaidDays, Basic, DA, HRA, CON, SpeicalAllowence, OtherAllowence, Gross, Empesic, Emppf, Emplwf, ProfessionalTax, ETD, AmountPaid, Admin1, MoblieAllowence, OtherExp, NetTakeHome, Incentive, Amount, DeductionInAdvance,  NetAmountPaid, Remarks, IfscCode, BankName, AccountName} = inpval;
+
+        const res2 = await fetch(`http://localhost:5000/updateuser/${id}`,{
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body:JSON.stringify({
+                Name, email, ActivationStatus, Division, AccountNo, Designation, EmpId, DOJ, Zone, State, City, Location, CityZone, Head, Company, Salary, MDay, PaidDays, Basic, DA, HRA, CON, SpeicalAllowence, OtherAllowence, Gross, Empesic, Emppf, Emplwf, ProfessionalTax, ETD, AmountPaid, Admin1, MoblieAllowence, OtherExp, NetTakeHome, Incentive, Amount, DeductionInAdvance,  NetAmountPaid, Remarks, IfscCode, BankName, AccountName
+            })
+        });
+
+        const data2 = await res2.json();
+        console.log(data2);
+
+        if(res2.status === 422 || !data2){
+            alert("fill the data");
+        }else{
+            history.push("/")
+            setUPdata(data2);
+        }
+
+    }
+
     return (
         <div className="container">
-            <NavLink to="/">home</NavLink>
+            <NavLink to="/">home2</NavLink>
             <form className="mt-4">
-                <div className="row">
+                <div style={{border: '1px solid #ccc', padding: '10px', textAlign: 'center'}}>
                     <div class="mb-3 col-lg-6 col-md-6 col-12">
                         <label for="exampleInputEmail1" class="form-label">Name</label>
                         <input type="text" value={inpval.Name} onChange={setdata} name="Name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                     </div>
                     <div class="mb-3 col-lg-6 col-md-6 col-12">
-                        <label for="exampleInputPassword1" class="form-label">Emp ID</label>
-                        <input type="text" value={inpval.email} onChange={setdata} name="email" class="form-control" id="exampleInputPassword1" />
+                        <label for="exampleInputPassword1" class="form-label">email</label>
+                        <input type="email" value={inpval.email} onChange={setdata} name="email" class="form-control" id="exampleInputPassword1" />
                     </div>
+                    
                      <div class="mb-3 col-lg-6 col-md-6 col-12">
                         <label for="exampleInputPassword1" class="form-label">date of joining</label>
                         <input type="text" value={inpval.DOJ} onChange={setdata} name="DOJ" class="form-control" id="exampleInputPassword1" />
@@ -271,16 +304,18 @@ const Register1 = () => {
                      <div class="mb-3 col-lg-6 col-md-6 col-12">
                         <label for="exampleInputPassword1" class="form-label">AccountName</label>
                         <input type="text" value={inpval.AccountName} onChange={setdata} name="AccountName" class="form-control" id="exampleInputPassword1" />
-                    </div> 
-                    <div class="mb-3 col-lg-6 col-md-6 col-12">
-                        <label for="exampleInputPassword1" class="form-label">role</label>
-                        <input type="text" value={inpval.Role} onChange={setdata} name="Role" class="form-control" id="exampleInputPassword1" />
-                    </div> 
+                    </div>
 
-                    <button type="submit" onClick={addinpdata} class="btn btn-primary">Submit</button>
+                    <button type="submit" onClick={updateuser} class="btn btn-primary">Submit</button>
                 </div>
             </form>
         </div>
     )
 }
-export default Register1;
+
+export default Edit;
+
+
+
+
+

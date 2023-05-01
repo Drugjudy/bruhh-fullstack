@@ -11,25 +11,22 @@ const users = require("../models/userSchema.cjs");
 // register user
 
 router.post("/register", async (req, res) => {
-  const { Name, email, EmpId, AccountNo, ActivationStatus, Division, Designation, DOJ, Zone, State, City, Location, CityZone, Head, Company, Salary, MDay, PaidDays, Basic, DA, HRA, CON, SpeicalAllowence, OtherAllowence, Gross, Empesic, Emppf, Emplwf, ProfessionalTax, ETD, AmountPaid, Admin1, MoblieAllowence, OtherExp, NetTakeHome, Incentive, Amount, DeductionInAdvance, NetAmountPaid, Remarks, IfscCode, BankName, AccountName  } = req.body;
+  const { Name, email, EmpId, AccountNo, ActivationStatus, Division, Designation, DOJ, Zone, State, City, Location, CityZone, Head, Company, Salary, MDay, PaidDays, Basic, DA, HRA, CON, SpeicalAllowence, OtherAllowence, Gross, Empesic, Emppf, Emplwf, ProfessionalTax, ETD, AmountPaid, Admin1, MoblieAllowence, OtherExp, NetTakeHome, Incentive, Amount, DeductionInAdvance, NetAmountPaid, Remarks, IfscCode, BankName, AccountName, Role  } = req.body;
 
-  if (!Name || !email || !EmpId || !AccountNo || !ActivationStatus || !Division || !Designation || !DOJ || !Zone || !State || !City || !Location || !CityZone || !Head || !Company || !Salary || !MDay || !PaidDays || !Basic || !DA || !HRA || !CON || !SpeicalAllowence || !OtherAllowence || !Gross || !Empesic || !Emppf || !Emplwf || !ProfessionalTax || !ETD || !AmountPaid || !Admin1 || !MoblieAllowence || !OtherExp || !NetTakeHome || !Incentive || !Amount || !DeductionInAdvance || !NetAmountPaid || !Remarks || !IfscCode || !BankName || !AccountName) {
+  if (!Name || !email || !AccountNo || !ActivationStatus || !Division || !Designation || !DOJ || !Zone || !State || !City || !Location || !CityZone || !Head || !Company || !Salary || !MDay || !PaidDays || !Basic || !DA || !HRA || !CON || !SpeicalAllowence || !OtherAllowence || !Gross || !Empesic || !Emppf || !Emplwf || !ProfessionalTax || !ETD || !AmountPaid || !Admin1 || !MoblieAllowence || !OtherExp || !NetTakeHome || !Incentive || !Amount || !DeductionInAdvance || !NetAmountPaid || !Remarks || !IfscCode || !BankName || !AccountName || !Role) {
     return res.status(422).json({ error: "Please fill all the fields" });
   }
 
   try {
-    const preuser = await users.findOne({ email });
+     const preuser = await users.findOne({email});
+        console.log(preuser);
 
-    if (preuser) {
-      return res
-        .status(422)
-        .json({ error: "This email address is already registered" });
-    }
-
+        if(preuser){
+            res.status(422).json("this is user is already present");
+        }
     const adduser = new users({
       Name,
       email,
-      EmpId,
       AccountNo,
       ActivationStatus,
       Division,
@@ -44,7 +41,7 @@ router.post("/register", async (req, res) => {
       Company,
       Salary,
       MDay,
-      PaidDays, Basic, DA, HRA, CON, SpeicalAllowence, OtherAllowence, Gross, Empesic, Emppf, Emplwf, ProfessionalTax, ETD, AmountPaid, Admin1, MoblieAllowence, OtherExp, NetTakeHome, Incentive, Amount, DeductionInAdvance, NetAmountPaid, Remarks, IfscCode, BankName, AccountName
+      PaidDays, Basic, DA, HRA, CON, SpeicalAllowence, OtherAllowence, Gross, Empesic, Emppf, Emplwf, ProfessionalTax, ETD, AmountPaid, Admin1, MoblieAllowence, OtherExp, NetTakeHome, Incentive, Amount, DeductionInAdvance, NetAmountPaid, Remarks, IfscCode, BankName, AccountName, Role
     });
 
     await adduser.save();

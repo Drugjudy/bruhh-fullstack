@@ -3,20 +3,36 @@ import { Box, useTheme } from "@mui/material";
 import { useGetCustomersQuery } from "state/api";
 import Header from "components/Header";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { Button } from '@mui/material';
+import { NavLink } from 'react-router-dom';
+
 
 const Customers = () => {
   const theme = useTheme();
   const { data, isLoading } = useGetCustomersQuery();
   console.log("data", data);
+  const handleClick = (event, cellValues) => {
+  alert("Hello world!");
+};
 
 
   const columns= [
-    {
-      field: "EmId",
-      headerName: "ID"
-     
-    },
-       { field: 'Name', headerName: 'Name', width: 150 },
+
+    {  headerName: 'edit button', width: 150, renderCell: (cellValues) => {
+    return (
+      <NavLink to={`/edit/${cellValues.row._id}`}>
+      <Button
+        variant="contained"
+        color="primary"
+      >
+        Edit
+      </Button>
+      </NavLink>
+    );
+  } },
+
+       { field: 'Name', headerName: 'Name', width: 150} ,
+      { field: 'email', headerName: 'Emp ID', width: 150 },
           { field: 'DOJ', headerName: 'Date of joining', width: 150 },
              { field: 'ActivationStatus', headerName: 'Active/deactive', width: 150 },
                 { field: 'Division', headerName: 'Division', width: 150 },

@@ -22,6 +22,7 @@ import Signup from "fire-auth/signup";
 import Login from "fire-auth/login";
 import Register1 from "scenes/daily/r1";
 import Home from "scenes/daily/Home";
+import Edit from "scenes/daily/Edit"
 
 function App() {
   const mode = useSelector((state) => state.global.mode);
@@ -35,9 +36,8 @@ function App() {
             <Route element={<Layout />}>
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/r1" element={<Register1 />} />
-               <Route path="/home" element={<Home />} />
-
+              <Route path="/register" element={<Register1 />} />
+              <Route exact path="/edit/:id" element={<Edit />} />
               <Route path="/candidates" element={<Candidates />} />
               <Route path="/managers" element={<Customers />} />
               <Route path="/recruiters" element={<Recruiters />} />

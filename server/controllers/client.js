@@ -26,6 +26,24 @@ export const getProducts = async (req, res) => {
   }
 };
 
+export const getRecruiters = async (req, res) => {
+  try {
+    const recruiters = await User.find({ role: "recruiter" });
+    res.status(200).json(recruiters);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getCandidates = async (req, res) => {
+  try {
+    const candidates = await User.find({ role: "candidate" });
+    res.status(200).json(candidates);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 export const getCustomers = async (req, res) => {
   try {
     const customers = await User.find({ role: "user" });
@@ -34,6 +52,36 @@ export const getCustomers = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+
+export const getCustomersCount = async (req, res) => {
+  try {
+    const customerCount = await User.countDocuments({ role: "user" });
+    res.status(200).json(customerCount);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getRecruiterCount = async (req, res) => {
+  try {
+    const recruiterCount = await User.countDocuments({ role: "recruiter" });
+    res.status(200).json(recruiterCount);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getCandidateCount = async (req, res) => {
+  try {
+    const candidateCount = await User.countDocuments({ role: "candidate" });
+    res.status(200).json(candidateCount);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+
 
 export const getTransactions = async (req, res) => {
   try {

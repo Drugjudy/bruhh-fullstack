@@ -1,5 +1,6 @@
 import React from "react";
 import FlexBetween from "components/FlexBetween";
+import { useGetCustomerCountQuery, useGetRecruiterCountQuery, useGetCandidateCountQuery } from "state/api";
 import Header from "components/Header";
 import {
   DownloadOutlined,
@@ -24,8 +25,10 @@ import StatBox from "components/StatBox";
 const Dashboard = () => {
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
-  const { data, isLoading } = useGetDashboardQuery();
-  console.log('data' , data);
+  const { data, isLoading } = useGetCustomerCountQuery();
+  const { data1, isLoading1 } = useGetCandidateCountQuery();
+  const { data2, isLoading2 } = useGetRecruiterCountQuery();
+  console.log('data2' , data2);
   
 
   const columns = [
@@ -93,7 +96,7 @@ const Dashboard = () => {
         {/* ROW 1 */}
         <StatBox
           title="New Clients"
-          value={data && data.totalCustomers}
+          value={data}
           increase="+14%"
           description="Since last month"
           icon={
@@ -104,8 +107,8 @@ const Dashboard = () => {
         />
         <StatBox
           title="New Hirings"
-          value={data && data.todayStats.totalSales}
-          increase="+21%"
+          value="4"
+          increase="+22%"
           description="Since last month"
           icon={
             <PointOfSale
@@ -124,7 +127,7 @@ const Dashboard = () => {
         </Box>
         <StatBox
           title="Closed Hirings"
-          value={data && data.thisMonthStats.totalSales}
+          value={data2}
           increase="+5%"
           description="Since last month"
           icon={

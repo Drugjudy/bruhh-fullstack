@@ -48,7 +48,7 @@ const Home = () => {
 
     const deleteuser = async (id) => {
 
-        const res2 = await fetch(`https://crudappreactjs.herokuapp.com/deleteuser/${id}`, {
+        const res2 = await fetch(`http://localhost:5000/deleteuser/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"

@@ -7,12 +7,7 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true,
-        unique: true
-    },
-    EmpId: {
-        type: String,
-        required: true
+        required: false,
     },
     AccountNo: {
         type: Number,
@@ -174,10 +169,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-  
-   
-    
-   
+     Role: {
+        type: String,
+        required: true
+    },  
 } ,{ timestamps: true  }
 );
 
