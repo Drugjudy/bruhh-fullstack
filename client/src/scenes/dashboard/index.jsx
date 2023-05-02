@@ -2,6 +2,7 @@ import React from "react";
 import FlexBetween from "components/FlexBetween";
 import { useGetCustomerCountQuery, useGetRecruiterCountQuery, useGetCandidateCountQuery } from "state/api";
 import Header from "components/Header";
+import { NavLink } from 'react-router-dom';
 import {
   DownloadOutlined,
   Email,
@@ -25,10 +26,23 @@ import StatBox from "components/StatBox";
 const Dashboard = () => {
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
-  const { data, isLoading } = useGetCustomerCountQuery();
-  const { data1, isLoading1 } = useGetCandidateCountQuery();
-  const { data2, isLoading2 } = useGetRecruiterCountQuery();
-  console.log('data2' , data2);
+  // const { data, isLoading } = useGetCustomerCountQuery();
+  // const { data1, isLoading1 } = useGetCandidateCountQuery();
+  // const { data2, isLoading2 } = useGetRecruiterCountQuery();
+  // console.log('data2' , data);
+  //  console.log('data1' , data1);
+
+   const { data, isLoading } = useGetCustomerCountQuery();
+console.log('customer count data:', data);
+console.log('customer count isLoading:', isLoading);
+
+const { data1, isLoading1 } = useGetCandidateCountQuery();
+console.log('candidate count data:', data1);
+console.log('candidate count isLoading:', isLoading1);
+
+const { data2, isLoading2 } = useGetRecruiterCountQuery();
+console.log('recruiter count data:', data2);
+console.log('recruiter count isLoading:', isLoading2);
   
 
   const columns = [
@@ -66,8 +80,8 @@ const Dashboard = () => {
     <Box m="1.5rem 2.5rem">
       <FlexBetween>
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
-
         <Box>
+           <NavLink to={`/edit/register`}>
           <Button
             sx={{
               backgroundColor: theme.palette.secondary.light,
@@ -78,8 +92,9 @@ const Dashboard = () => {
             }}
           >
             <DownloadOutlined sx={{ mr: "10px" }} />
-            Download Reports
+            ADD
           </Button>
+          </NavLink>
         </Box>
       </FlexBetween>
 

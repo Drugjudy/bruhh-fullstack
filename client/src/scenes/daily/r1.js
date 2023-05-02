@@ -276,8 +276,7 @@ const Register1 = () => {
                         <label for="exampleInputPassword1" class="form-label">role</label>
                         <input type="text" value={inpval.Role} onChange={setdata} name="Role" class="form-control" id="exampleInputPassword1" />
                     </div> 
-
-                    <button type="submit" onClick={addinpdata} class="btn btn-primary">Submit</button>
+  <NavLink to={`/dashboard`}> <button type="submit" onClick={addinpdata} class="btn btn-primary">Submit</button> </NavLink>
                 </div>
             </form>
         </div>

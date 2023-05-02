@@ -1,35 +1,107 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from 'react';
 import { Box, useTheme } from "@mui/material";
 import { useGetCustomersQuery } from "state/api";
 import Header from "components/Header";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import { adddata, deldata, updatedata } from 'scenes/daily/context/ContextProvider';
 
 
 const Customers = () => {
   const theme = useTheme();
   const { data, isLoading } = useGetCustomersQuery();
-  console.log("data", data);
-  const handleClick = (event, cellValues) => {
-  alert("Hello world!");
+  
+   const [getuserdata, setUserdata] = useState([]);
+    console.log(getuserdata);
+
+    const { udata, setUdata } = useContext(adddata);
+
+    const {updata, setUPdata} = useContext(updatedata);
+
+    const {dltdata, setDLTdata} = useContext(deldata);
+
+    const getdata = async () => {
+
+        const res = await fetch("http://localhost:5000/getdata", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const data = await res.json();
+
+        if (res.status === 422 || !data) {
+            console.log("error ");
+
+        } else {
+            setUserdata(data)
+            console.log("get data");
+
+        }
+    }
+
+    useEffect(() => {
+        getdata();
+    }, [])
+
+    const deleteuser = async (id) => {
+
+        const res2 = await fetch(`http://localhost:5000/deleteuser/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const deletedata = await res2.json();
+        console.log(deletedata);
+
+        if (res2.status === 422 || !deletedata) {
+            console.log("error");
+        } else {
+            console.log("user deleted");
+            setDLTdata(deletedata)
+            getdata();
+        }
+
+    
 };
 
 
   const columns= [
 
-    {  headerName: 'edit button', width: 150, renderCell: (cellValues) => {
-    return (
-      <NavLink to={`/edit/${cellValues.row._id}`}>
-      <Button
-        variant="contained"
-        color="primary"
-      >
-        Edit
-      </Button>
-      </NavLink>
-    );
-  } },
+    {
+    headerName: 'edit button',
+    width: 100,
+    renderCell: (cellValues) => {
+      return ( 
+        <NavLink to={`/edit/${cellValues.row._id}`}>
+          <Button
+            variant="contained"
+            color="primary"
+          >
+            Edit
+          </Button>
+        </NavLink> 
+      );
+    },
+  },
+  {
+    field: 'deleteButton',
+    headerName: 'Delete',
+    width: 100,
+    renderCell: (cellValues) => {
+      return (
+        <Button  variant="contained"
+            color="primary" onClick={() => {
+    deleteuser(cellValues.row._id);
+    window.location.reload();
+  }}> delete </Button>
+      );
+    },
+  },
 
        { field: 'Name', headerName: 'Name', width: 150} ,
       { field: 'email', headerName: 'Emp ID', width: 150 },

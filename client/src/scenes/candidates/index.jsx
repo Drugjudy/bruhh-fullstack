@@ -73,70 +73,95 @@ const Candidates = () => {
    
 
 
-  const columns= [
-    {  headerName: 'edit button', width: 150, renderCell: (cellValues) => {
-    return ( 
-      <NavLink to={`/edit/${cellValues.row._id}`}>
-      <Button
-        variant="contained"
-        color="primary"
-      >
-        Edit
-      </Button>
-      </NavLink>
+ const columns= [
+  {
+    headerName: 'edit button',
+    width: 100,
+    renderCell: (cellValues) => {
+      return ( 
+        <NavLink to={`/edit/${cellValues.row._id}`}>
+          <Button
+            variant="contained"
+            color="primary"
+          >
+            Edit
+          </Button>
+        </NavLink> 
+      );
+    },
+  },
+  {
+    field: 'deleteButton',
+    headerName: 'Delete',
+    width: 100,
+    renderCell: (cellValues) => {
+      return (
+        <Button  variant="contained"
+            color="primary" onClick={() => {
+    deleteuser(cellValues.row._id);
+    window.location.reload();
+  }}> delete </Button>
+      );
+    },
+  },
+  {
+    field: 'Name',
+    headerName: 'Name',
+    width: 100,
+    disableClickEventBubbling: true,
+  },
+  {
+    field: 'email',
+    headerName: 'Emp ID',
+    width: 100,
+  },
+  {
+    field: 'DOJ',
+    headerName: 'Date of joining',
+    width: 100,
+  },
+  
+             { field: 'ActivationStatus', headerName: 'Active/deactive', width: 100 },
+                { field: 'Division', headerName: 'Division', width: 100 },
+                   { field: 'Designation', headerName: 'Designation', width: 100 },
+                      { field: 'Zone', headerName: 'Zone', width: 100 },
+                         { field: 'State', headerName: 'State', width: 100 },
+                            { field: 'City', headerName: 'City', width: 100 },
+                               { field: 'Location', headerName: 'Location', width: 100 },
+                                  { field: 'CityZone', headerName: 'CityZone', width: 100 },
+                                     { field: 'Head', headerName: 'Head', width: 100 },
+                                        { field: 'Company', headerName: 'Company', width: 100 },
+                                           { field: 'Salary', headerName: 'Salary', width: 100 },
+                                              { field: 'MDay', headerName: 'MDay', width: 100 },
+                                                 { field: 'PaidDays', headerName: 'PaidDays', width: 100 },
+                                                    { field: 'Basic', headerName: 'Basic', width: 100 },
+                                                       { field: 'DA', headerName: 'DA', width: 100 },
+                                                          { field: 'HRA', headerName: 'HRA', width: 100 },
+                                                             { field: 'CON', headerName: 'CON', width: 100 },
+                                                                { field: 'SpeicalAllowence', headerName: 'SpeicalAllowence', width: 100 },
+                                                                   { field: 'OtherAllowence', headerName: 'OtherAllowence', width: 100 },
+                                                                      { field: 'Gross', headerName: 'Gross', width: 100 },
+                                                                         { field: 'Empesic', headerName: 'Empesic', width: 100 },
+                                                                            { field: 'Emppf', headerName: 'Emppf', width: 100 },
+                                                                               { field: 'Emplwf', headerName: 'Emplwf', width: 100 },
+                                                                                  { field: 'ProfessionalTax', headerName: 'ProfessionalTax', width: 100 },
+                                                                                     { field: 'ETD', headerName: 'ETD', width: 100 },
       
-    );
-  } },
-
-       { field: 'Name', headerName: 'Name', width: 150, disableClickEventBubbling: true },
-                { field: 'email', headerName: 'Emp ID', width: 150 },
-          { field: 'DOJ', headerName: 'Date of joining', width: 150 },
-           {  headerName: 'Delete', width: 150, renderCell: (cellValues) => {
-    return (
-      <button className="btn btn-danger" onClick={() => deleteuser(cellValues.row._id)}> delete </button>
-    );
-  } },
-             { field: 'ActivationStatus', headerName: 'Active/deactive', width: 150 },
-                { field: 'Division', headerName: 'Division', width: 150 },
-                   { field: 'Designation', headerName: 'Designation', width: 150 },
-                      { field: 'Zone', headerName: 'Zone', width: 150 },
-                         { field: 'State', headerName: 'State', width: 150 },
-                            { field: 'City', headerName: 'City', width: 150 },
-                               { field: 'Location', headerName: 'Location', width: 150 },
-                                  { field: 'CityZone', headerName: 'CityZone', width: 150 },
-                                     { field: 'Head', headerName: 'Head', width: 150 },
-                                        { field: 'Company', headerName: 'Company', width: 150 },
-                                           { field: 'Salary', headerName: 'Salary', width: 150 },
-                                              { field: 'MDay', headerName: 'MDay', width: 150 },
-                                                 { field: 'PaidDays', headerName: 'PaidDays', width: 150 },
-                                                    { field: 'Basic', headerName: 'Basic', width: 150 },
-                                                       { field: 'DA', headerName: 'DA', width: 150 },
-                                                          { field: 'HRA', headerName: 'HRA', width: 150 },
-                                                             { field: 'CON', headerName: 'CON', width: 150 },
-                                                                { field: 'SpeicalAllowence', headerName: 'SpeicalAllowence', width: 150 },
-                                                                   { field: 'OtherAllowence', headerName: 'OtherAllowence', width: 150 },
-                                                                      { field: 'Gross', headerName: 'Gross', width: 150 },
-                                                                         { field: 'Empesic', headerName: 'Empesic', width: 150 },
-                                                                            { field: 'Emppf', headerName: 'Emppf', width: 150 },
-                                                                               { field: 'Emplwf', headerName: 'Emplwf', width: 150 },
-                                                                                  { field: 'ProfessionalTax', headerName: 'ProfessionalTax', width: 150 },
-                                                                                     { field: 'ETD', headerName: 'ETD', width: 150 },
-      
-      { field: 'AmountPaid', headerName: 'AmountPaid', width: 150 },
-          { field: 'Admin1', headerName: 'Admin1', width: 150 },
-             { field: 'PetrolAllowence', headerName: 'PetrolAllowence', width: 150 },
-                { field: 'MoblieAllowence', headerName: 'MoblieAllowence', width: 150 },
-                 { field: 'OtherExp', headerName: 'OtherExp', width: 150 },
-          { field: 'NetTakeHome', headerName: 'NetTakeHome', width: 150 },
-             { field: 'Incentive', headerName: 'Incentive', width: 150 },
-                { field: 'Amount', headerName: 'Amount', width: 150 },
-                 { field: 'DeductionInAdvance', headerName: 'DeductionInAdvance', width: 150 },
-          { field: 'NetAmountPaid', headerName: 'NetAmountPaid', width: 150 },
-             { field: 'Remarks', headerName: 'Remarks', width: 150 },
-                { field: 'AccountNo', headerName: 'AccountNo', width: 150 }, { field: 'DeductionInAdvance', headerName: 'DeductionInAdvance', width: 150 },
-          { field: 'IfscCode', headerName: 'IfscCode', width: 150 },
-             { field: 'BankName', headerName: 'BankName', width: 150 },
-                { field: 'AccountName', headerName: 'AccountName', width: 150 },];
+      { field: 'AmountPaid', headerName: 'AmountPaid', width: 100 },
+          { field: 'Admin1', headerName: 'Admin1', width: 100 },
+             { field: 'PetrolAllowence', headerName: 'PetrolAllowence', width: 100 },
+                { field: 'MoblieAllowence', headerName: 'MoblieAllowence', width: 100 },
+                 { field: 'OtherExp', headerName: 'OtherExp', width: 100 },
+          { field: 'NetTakeHome', headerName: 'NetTakeHome', width: 100 },
+             { field: 'Incentive', headerName: 'Incentive', width: 100 },
+                { field: 'Amount', headerName: 'Amount', width: 100 },
+                 { field: 'DeductionInAdvance', headerName: 'DeductionInAdvance', width: 100 },
+          { field: 'NetAmountPaid', headerName: 'NetAmountPaid', width: 100 },
+             { field: 'Remarks', headerName: 'Remarks', width: 100 },
+                { field: 'AccountNo', headerName: 'AccountNo', width: 100 }, { field: 'DeductionInAdvance', headerName: 'DeductionInAdvance', width: 100 },
+          { field: 'IfscCode', headerName: 'IfscCode', width: 100 },
+             { field: 'BankName', headerName: 'BankName', width: 100 },
+                { field: 'AccountName', headerName: 'AccountName', width: 100 },];
     // 
 
 

@@ -306,7 +306,7 @@ const Edit = () => {
                         <input type="text" value={inpval.AccountName} onChange={setdata} name="AccountName" class="form-control" id="exampleInputPassword1" />
                     </div>
 
-                    <button type="submit" onClick={updateuser} class="btn btn-primary">Submit</button>
+                   <NavLink to={`/dashboard`}> <button type="submit" onClick={updateuser} class="btn btn-primary">Submit</button> </NavLink>
                 </div>
             </form>
         </div>

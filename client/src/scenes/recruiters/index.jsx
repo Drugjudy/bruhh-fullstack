@@ -77,24 +77,36 @@ const Recruiters = () => {
 
 
   const columns= [
-    {  headerName: 'edit ', width: 150, renderCell: (cellValues) => {
-    return (
-      <NavLink to={`/edit/${cellValues.row._id}`}>
-      <Button
-        variant="contained"
-        color="primary"
-      >
-        Edit
-      </Button>
-      </NavLink>
-    );
-  } },
-  
-  {  headerName: 'Delete', width: 150, renderCell: (cellValues) => {
-    return (
-      <button className="btn btn-danger" onClick={() => deleteuser(cellValues.row._id)}> delete </button>
-    );
-  } },
+    {
+    headerName: 'edit button',
+    width: 100,
+    renderCell: (cellValues) => {
+      return ( 
+        <NavLink to={`/edit/${cellValues.row._id}`}>
+          <Button
+            variant="contained"
+            color="primary"
+          >
+            Edit
+          </Button>
+        </NavLink> 
+      );
+    },
+  },
+  {
+    field: 'deleteButton',
+    headerName: 'Delete',
+    width: 100,
+    renderCell: (cellValues) => {
+      return (
+       <Button  variant="contained"
+            color="primary" onClick={() => {
+    deleteuser(cellValues.row._id);
+    window.location.reload();
+  }}> delete </Button>
+      );
+    },
+  },
     
        { field: 'Name', headerName: 'Name', width: 150 },
          { field: 'email', headerName: 'Emp ID', width: 150 },

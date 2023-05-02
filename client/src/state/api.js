@@ -13,6 +13,9 @@ export const api = createApi({
     "Admins",
     "Performance",
     "Dashboard",
+    "Recruiters",
+    "Candidates"
+
   ],
   endpoints: (build) => ({
     getUser: build.query({
@@ -40,13 +43,13 @@ export const api = createApi({
       providesTags: ["Candidates"],
     }),
     getRecruiterCount: build.query({
-      query: () => "client/recruiterCount",
-      providesTags: ["RecruiterCount"],
-    }),
+  query: () => "client/recruiterCount",
+  providesTags: ["RecruiterCount"],
+  }),
     getCandidateCount: build.query({
-      query: () => "client/candidateCount",
-      providesTags: ["CandidateCount"],
-    }),
+  query: () => "client/candidateCount",
+  providesTags: ["CandidateCount"],
+  }),
     getTransactions: build.query({
       query: ({ page, pageSize, sort, search }) => ({
         url: "client/transactions",

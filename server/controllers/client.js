@@ -72,14 +72,7 @@ export const getRecruiterCount = async (req, res) => {
   }
 };
 
-export const getCandidateCount = async (req, res) => {
-  try {
-    const candidateCount = await User.countDocuments({ role: "candidate" });
-    res.status(200).json(candidateCount);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
+
 
 
 
